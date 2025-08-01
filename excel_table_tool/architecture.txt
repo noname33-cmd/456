@@ -1,0 +1,16 @@
+excel_table_tool/
+├── main.py                      # Точка входа, GUI-инициализация
+├── ui/
+│   ├── main_window.py           # Главное окно с меню и фреймами
+│   ├── table_preview.py         # Просмотр данных (TreeView)
+│   └── dialogs.py               # Диалоги: фильтрация, добавление столбца, расширенный фильтр
+├── core/
+│   ├── file_loader.py           # Загрузка файлов (Excel, CSV, JSON, TXT)
+│   ├── data_processor.py        # Объединение, фильтрация, группировка, очистка, расширенный фильтр
+│   ├── analytics.py             # Статистика и сводки
+│   ├── exporter.py              # Сохранение в Excel, CSV, PDF
+│   └── session.py               # История сессий и логирование
+├── assets/
+│   └── icon.ico                 # Иконка, стили, языки
+├── history.json                # История изменений (undo/redo)
+└── README.md
