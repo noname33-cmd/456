@@ -1,0 +1,20 @@
+{
+  "server": {
+    "port": "7702"
+  },
+  "cors": {
+    "allowed_origins": ["http://localhost:7700"],
+    "allowed_methods": ["GET", "POST", "PUT", "DELETE"]
+  },
+  "kasada": {
+    "salamoonder": {
+      "enable": false,
+      "apikey": "sr-kikersky-661a-9c7b-caa1-41ae95ba"
+    },
+    "notion": {
+      "enable": true,
+      "host": "http://45.144.53.236:9001",
+      "apikey": "pCQWuf25KmNTY8dSqJUW3nqhz58Zyq4G"
+    }
+  }
+}
