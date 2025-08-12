@@ -1,0 +1,41 @@
+[
+  // ==== КРИТИЧНЫЕ — делаем RESTART ====
+  { "pattern": "OutOfMemoryError",                                   "severity": "critical", "action": "restart" },
+  { "pattern": "java\\.lang\\.StackOverflowError",                    "severity": "critical", "action": "restart" },
+  { "pattern": "GC overhead limit exceeded",                          "severity": "critical", "action": "restart" },
+  { "pattern": "Unable to acquire lock|deadlock detected",            "severity": "critical", "action": "restart" },
+
+  // Бэкенд/БД недоступны (длительная потеря связи)
+  { "pattern": "Communications link failure",                         "severity": "critical", "action": "restart" },
+  { "pattern": "could not connect to server.*(Connection refused|timeout)", "severity": "critical", "action": "restart" },
+  { "pattern": "org\\.postgresql\\..* (FATAL|severity: FATAL)",       "severity": "critical", "action": "restart" },
+  { "pattern": "SQLRecoverableException|SQLNonTransientConnectionException", "severity": "critical", "action": "restart" },
+
+  // Пулы потоков/соединений исчерпаны
+  { "pattern": "RejectedExecutionException",                          "severity": "critical", "action": "restart" },
+  { "pattern": "Timeout waiting for idle object",                     "severity": "critical", "action": "restart" },
+  { "pattern": "pool.*exhausted|Too many open connections",           "severity": "critical", "action": "restart" },
+
+  // Прямые сетевые ошибки на уровне приложений
+  { "pattern": "\\bECONNRESET\\b|connection reset by peer|connection reset", "severity": "critical", "action": "restart" },
+  { "pattern": "RST_STREAM|Broken pipe",                              "severity": "critical", "action": "restart" },
+
+  // keycloak/auth критично
+  { "pattern": "org\\.keycloak\\..*(ERROR|FATAL)",                     "severity": "critical", "action": "restart" },
+
+  // ==== HIGH — вероятно рестарт (можно донастроить) ====
+  { "pattern": "org\\.jboss\\..* (ERROR|FATAL)",                      "severity": "high",     "action": "restart" },
+  { "pattern": "WildFly.*(ERROR|FATAL)",                              "severity": "high",     "action": "restart" },
+  { "pattern": "IllegalStateException:.*(state|closed|stopped)",      "severity": "high",     "action": "restart" },
+  { "pattern": "Native memory.*(oom|exhausted)",                      "severity": "high",     "action": "restart" },
+
+  // ==== WARN — уведомляем, без рестарта ====
+  { "pattern": "\\bWARN(ING)?\\b",                                    "severity": "warn",     "action": "notify" },
+  { "pattern": "Too many open files",                                 "severity": "warn",     "action": "notify" },
+  { "pattern": "slow query.*(\\d{3,}ms|[1-9]\\d{3,}ms)",               "severity": "warn",     "action": "notify" },
+  { "pattern": "CircuitBreaker.*open",                                "severity": "warn",     "action": "notify" },
+
+  // ==== INFO — чисто уведомления по важным событиям ====
+  { "pattern": "Deployment.*(failed|rollback)",                       "severity": "info",     "action": "notify" },
+  { "pattern": "server reloaded|restarting|stopping",                 "severity": "info",     "action": "notify" }
+]
