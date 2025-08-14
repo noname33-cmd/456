@@ -1,0 +1,30 @@
+{
+  "Jboss_client": {
+    "provider": "haproxy",
+    "provider_conf": { "socket": "/run/haproxy/admin.sock", "backend": "Jboss_client" },
+    "min_enabled": 4
+  },
+  "nginx_api": {
+    "provider": "nginx",
+    "provider_conf": {
+      "upstream_conf": "/etc/nginx/upstreams/api_upstream.conf",
+      "reload_cmd": "nginx -s reload"
+    },
+    "min_enabled": 3
+  },
+  "workers_group": {
+    "provider": "systemd_group",
+    "provider_conf": {
+      "units": ["svc-a.service","svc-b.service","svc-c.service","svc-d.service","svc-e.service"]
+    },
+    "min_enabled": 4
+  },
+  "jboss_pool": {
+    "provider": "jboss",
+    "provider_conf": {
+      "cli": "/opt/jboss/bin/jboss-cli.sh",
+      "hosts": ["node1","node2","node3","node4","node5"]
+    },
+    "min_enabled": 4
+  }
+}
