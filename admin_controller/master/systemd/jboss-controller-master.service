@@ -1,0 +1,29 @@
+[Unit]
+Description=JBoss Controller Master (FastAPI/uvicorn)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=patternctl
+Group=patternctl
+WorkingDirectory=/tmp/pattern_controller/master
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/env uvicorn app:app --host 0.0.0.0 --port 35073
+Restart=always
+RestartSec=3
+
+# Жёстче лимиты по умолчанию:
+NoNewPrivileges=true
+LockPersonality=true
+ProtectControlGroups=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+ReadWritePaths=/tmp/pattern_controller/master
+
+[Install]
+WantedBy=multi-user.target

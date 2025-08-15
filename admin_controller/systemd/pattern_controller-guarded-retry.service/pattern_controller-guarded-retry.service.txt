@@ -1,0 +1,9 @@
+[Unit]
+Description=Guarded toggle retry for all clusters
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /tmp/pattern_controller/controller/guarded_toggle.py --action retry
+User=root
+Group=root

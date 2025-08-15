@@ -1,0 +1,30 @@
+[Unit]
+Description=Pattern Controller - HAProxy Ops Worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=PC_BASE=/tmp/pattern_controller
+EnvironmentFile=/etc/pattern-controller.env
+WorkingDirectory=/tmp/pattern_controller
+ExecStart=/usr/bin/python3 /usr/local/bin/haproxy_ops_worker.py \
+  --runtime-sock ${HAPROXY_SOCKET} \
+  --cfg-path ${HAPROXY_CFG} \
+  --backends-allow "${HAPROXY_BACKENDS}" \
+  --queue /tmp/pattern_controller/signals/haproxy_ops \
+  --inprogress /tmp/pattern_controller/signals/haproxy_ops_inprogress \
+  --done /tmp/pattern_controller/signals/haproxy_ops_done \
+  --failed /tmp/pattern_controller/signals/haproxy_ops_failed \
+  --report /tmp/pattern_controller/report/$(/bin/hostname -s) \
+  --logs /tmp/pattern_controller/logs/$(/bin/hostname -s) \
+  --loop \
+  --interval 0.2
+Restart=always
+RestartSec=1
+User=root
+StandardOutput=append:/tmp/pattern_controller/logs/worker_haproxy_ops.log
+StandardError=append:/tmp/pattern_controller/logs/worker_haproxy_ops.err
+
+[Install]
+WantedBy=multi-user.target
