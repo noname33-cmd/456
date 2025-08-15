@@ -1,0 +1,12 @@
+[Unit]
+Description=Pattern Controller - HAProxy Stats Collector
+
+[Service]
+Type=oneshot
+Environment=PC_BASE=/tmp/pattern_controller
+EnvironmentFile=/etc/pattern-controller.env
+WorkingDirectory=/tmp/pattern_controller
+ExecStart=/usr/bin/python3 /usr/local/bin/stats_collector_haproxy.py \
+  --sock ${HAPROXY_SOCKET} \
+  --report /tmp/pattern_controller/report/$(/bin/hostname -s)
+User=root
