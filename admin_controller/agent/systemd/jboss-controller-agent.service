@@ -1,0 +1,23 @@
+[Unit]
+Description=JBoss Controller Agent (FastAPI/uvicorn)
+After=network-online.target haproxy.service
+Wants=network-online.target haproxy.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/tmp/pattern_controller/agent
+Environment=PYTHONUNBUFFERED=1
+# При желании можно закрепить интерфейс/порт через --host/--port
+ExecStart=/usr/bin/env uvicorn app:app --host 0.0.0.0 --port 35072
+Restart=always
+RestartSec=2
+
+# Базовая защита процесса (чтобы не ломать доступ к /run/haproxy и systemctl):
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/tmp/pattern_controller/agent /etc/haproxy /run/haproxy
+# Если у вас SELinux/AppArmor — разрешить доступ к /run/haproxy/admin.sock
+
+[Install]
+WantedBy=multi-user.target

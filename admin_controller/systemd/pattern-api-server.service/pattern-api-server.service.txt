@@ -1,0 +1,21 @@
+[Unit]
+Description=Pattern Controller - Mini API (graphs/ops/metrics)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=PC_BASE=/tmp/pattern_controller
+EnvironmentFile=/etc/pattern-controller.env
+WorkingDirectory=/tmp/pattern_controller
+ExecStart=/usr/bin/python3 /usr/local/bin/api_server.py \
+  --bind ${API_BIND} \
+  --port ${API_PORT}
+Restart=on-failure
+RestartSec=3
+User=root
+StandardOutput=append:/tmp/pattern_controller/logs/master_api.log
+StandardError=append:/tmp/pattern_controller/logs/master_api.err
+
+[Install]
+WantedBy=multi-user.target

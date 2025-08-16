@@ -1,0 +1,13 @@
+* { box-sizing: border-box }
+html,body { margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system }
+.container { max-width: 1100px; margin: 0 auto; padding: 16px }
+.card { background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,.04) }
+.row { display:grid; gap:16px }
+.row-3 { grid-template-columns: repeat(3, minmax(0,1fr)) }
+.btn { border:0; padding:8px 12px; border-radius:10px; cursor:pointer }
+.btn.primary { background:#111827; color:#fff }
+.btn.blue { background:#2563eb; color:#fff }
+.input, select { border:1px solid #cbd5e1; padding:6px 8px; border-radius:8px }
+.small { font-size:.9rem; color:#475569 }
+.badge { display:inline-block; background:#f1f5f9; border:1px solid #e2e8f0; padding:2px 8px; border-radius:999px; margin:2px }
+pre { background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:10px; overflow:auto }
