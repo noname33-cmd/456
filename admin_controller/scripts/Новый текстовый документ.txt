@@ -1,1 +1,0 @@
-./rotate_secrets.sh --dir /opt/admin_controller --toggle-secret '1' --set API_TOKEN='2' --set JWT_SECRET='3' --set AUTH_TOKEN='4'
